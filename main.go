@@ -1,6 +1,8 @@
-package main
+package tasktracker
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	fmt.Println("Hello go!")
