@@ -16,8 +16,7 @@ func main() {
 	case "add":
 		desc := flag.Arg(1)
 		if desc == "" {
-			err = fmt.Errorf("usage: %s add \"description of the new task.\"", os.Args[0])
-			checkError(err)
+			fmt.Printf("usage: %s add \"description of the new task.\"\n", os.Args[0])
 			break
 		}
 		newId := tasks.AddFromDescription(desc)
@@ -26,8 +25,7 @@ func main() {
 		id, err := strconv.Atoi(flag.Arg(1))
 		desc := flag.Arg(2)
 		if err != nil || desc == "" {
-			err = fmt.Errorf("usage: %s update <id> \"description of the new task.\"", os.Args[0])
-			checkError(err)
+			fmt.Printf("usage: %s update <id> \"description of the new task.\"\n", os.Args[0])
 			break
 		}
 
@@ -37,8 +35,7 @@ func main() {
 	case "delete":
 		id, err := strconv.Atoi(flag.Arg(1))
 		if err != nil {
-			err = fmt.Errorf("usage: %s delete <id>", os.Args[0])
-			checkError(err)
+			fmt.Printf("usage: %s delete <id>\n", os.Args[0])
 			break
 		}
 
@@ -50,8 +47,7 @@ func main() {
 		s := flag.Arg(2)
 		isValid := CheckValidStatus(s)
 		if err != nil || !isValid {
-			err = fmt.Errorf("usage: %s mark <id> [todo,in-progress,done]", os.Args[0])
-			checkError(err)
+			fmt.Printf("usage: %s mark <id> [todo,in-progress,done]\n", os.Args[0])
 			break
 		}
 
@@ -68,8 +64,7 @@ func main() {
 		} else {
 			isValid := CheckValidStatus(s)
 			if !isValid {
-				err = fmt.Errorf("usage: %s list <none>|[todo,in-progress,done]", os.Args[0])
-				checkError(err)
+				fmt.Printf("usage: %s list <none>|[todo,in-progress,done]\n", os.Args[0])
 				break
 			}
 			status, err := ParseFromString(s)
@@ -101,8 +96,7 @@ func main() {
 		}
 		w.Flush()
 	default:
-		err = fmt.Errorf("usage: %s [add,update,delete,mark,list]", os.Args[0])
-		checkError(err)
+		fmt.Printf("usage: %s [add,update,delete,mark,list]\n", os.Args[0])
 	}
 	err = SaveTasksToFile(tasks, "storage.json")
 	checkError(err)

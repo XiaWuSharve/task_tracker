@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -60,7 +61,7 @@ func (t *TaskRepository) AddTask(task Task) int {
 
 func (t *TaskRepository) AddFromDescription(desc string) int {
 	task := Task{
-		Description: desc,
+		Description: strings.Replace(desc, "\n", `\n`, -1),
 	}
 	return t.AddTask(task)
 }
@@ -86,7 +87,7 @@ func (t *TaskRepository) UpdateFromDescription(sourceId int, desc string) error 
 		return errors.New(errMsg)
 	}
 
-	(*t)[existingTaskIndex].Description = desc
+	(*t)[existingTaskIndex].Description = strings.Replace(desc, "\n", `\n`, -1)
 	(*t)[existingTaskIndex].UpdatedAt = JSONTime(time.Now())
 
 	return nil
